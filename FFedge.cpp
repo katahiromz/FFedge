@@ -267,12 +267,6 @@ WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
 INT FFEDGE::parse_command_line(INT argc, LPWSTR *argv)
 {
-    if (argc <= 1)
-    {
-        usage();
-        return 1;
-    }
-
     for (INT iarg = 1; iarg < argc; ++iarg)
     {
         LPWSTR arg = argv[iarg];
