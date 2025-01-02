@@ -38,6 +38,13 @@
 
 - MIT
 
+## 開発履歴
+
+- 2024-01-02 Ver.1.0
+    - 初公開。
+- 2024-01-02 Ver.1.1
+    - サイズ変更可能に。
+
 ## 連絡先
 
 - 片山博文 <katayama.hirofumi.mz@gmail.com>
@@ -84,6 +91,13 @@ Options:
 ## License
 
 - MIT
+
+## History
+
+- 2024-01-02 Ver.1.0
+    - First release.
+- 2024-01-02 Ver.1.1
+    - Made it resizable.
 
 ## Contact
 

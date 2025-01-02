@@ -75,7 +75,7 @@ void message(INT uType, LPCWSTR fmt, ...)
 
 void version(void)
 {
-    message(MB_ICONINFORMATION, L"FFedge version 1.0 by katahiromz");
+    message(MB_ICONINFORMATION, L"FFedge version 1.1 by katahiromz");
 }
 
 void usage(void)
@@ -418,13 +418,9 @@ BOOL FFEDGE::createMainWnd(INT nCmdShow)
     DWORD style, exstyle = WS_EX_TOPMOST;
 
     if (m_noborder || m_fullscreen)
-    {
         style = WS_POPUPWINDOW;
-    }
     else
-    {
-        style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
-    }
+        style = WS_OVERLAPPEDWINDOW;
 
     RECT rcWork = { 0, 0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN) };
     SIZE sizWork = { (rcWork.right - rcWork.left), (rcWork.bottom - rcWork.top) };
