@@ -6,6 +6,8 @@
 
 これは、Microsoft Edgeブラウザを指定された位置とサイズで表示するためのWindows用のコマンドラインツールです。
 
+「-noborder」オプションを指定することにより、タイトルバーを消すことも可能です。
+
 ## 使い方
 
 ```
@@ -40,6 +42,8 @@
 ## What's this?
 
 This is a command line tool for Windows to display the Microsoft Edge browser in a specified position and size.
+
+You can also remove the title bar by specifying the "-noborder" option.
 
 ## Usage
 
