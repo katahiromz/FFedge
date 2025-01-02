@@ -28,6 +28,10 @@
 
 - Windows 10 および Windows 11
 
+## 注意
+
+- タイトルバーがないときにウィンドウを閉じたい場合は、ウィンドウをクリックして Alt+F4を押してください。
+
 ## ライセンス
 
 - MIT
@@ -68,6 +72,10 @@ Options:
 ## Supported Platforms
 
 - Windows 10 and Windows 11
+
+## Note
+
+- If you want to close a window when it doesn't have a title bar, click on the window and press Alt+F4.
 
 ## License
 

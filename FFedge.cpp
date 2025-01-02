@@ -205,7 +205,8 @@ public:
 struct FFEDGE
 {
     bool m_noborder = false, m_fullscreen = false;
-    std::wstring m_url, m_window_title;
+    std::wstring m_url = L"https://google.com";
+    std::wstring m_window_title = L"FFedge";
     INT m_x = CW_USEDEFAULT, m_y = CW_USEDEFAULT;
     INT m_left = CW_USEDEFAULT, m_top = CW_USEDEFAULT;
     HWND m_hWnd;
@@ -396,16 +397,7 @@ INT FFEDGE::parse_command_line(INT argc, LPWSTR *argv)
             return 1;
         }
 
-        if (m_url.empty())
-        {
-            m_url = arg;
-            continue;
-        }
-        else
-        {
-            message(MB_ICONERROR, L"ERROR: Too many arguments.");
-            return 1;
-        }
+        m_url = arg;
     }
 
     return 0;
