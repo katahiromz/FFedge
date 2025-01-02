@@ -10,7 +10,6 @@
 
 ## 使い方
 
-```txt
 使用方法: FFedge [オプション] URL
 
 オプション:
@@ -24,7 +23,6 @@
   -window_title タイトル ウィンドウタイトルを設定します（デフォルトはFFedgeです）。
   -help                  このヘルプメッセージを表示します。
   -version               バージョン情報を表示します。
-```
 
 ## ライセンス
 
@@ -47,7 +45,6 @@ You can also remove the title bar by specifying the "-noborder" option.
 
 ## Usage
 
-```txt
 Usage: FFedge [Options] URL
 
 Options:
@@ -63,7 +60,6 @@ Options:
   -window_title TITLE   Set the window title (default is FFedge).
   -help                 Display this help message.
   -version              Display version information.
-```
 
 ## License
 
