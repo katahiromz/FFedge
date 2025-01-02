@@ -75,7 +75,7 @@ void message(INT uType, LPCWSTR fmt, ...)
 
 void version(void)
 {
-    message(MB_ICONINFORMATION, L"FFedge version 0.0 by katahiromz");
+    message(MB_ICONINFORMATION, L"FFedge version 1.0 by katahiromz");
 }
 
 void usage(void)
