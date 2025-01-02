@@ -6,7 +6,7 @@
 
 これは、Microsoft Edgeブラウザを指定された位置とサイズで表示するためのWindows用のコマンドラインツールです。
 
-「-noborder」オプションを指定することにより、タイトルバーを消すことも可能です。
+アドレスバー、ツールバーのないEdgeブラウザを起動します。「-noborder」オプションを指定することにより、タイトルバーを消すことも可能です。
 
 ## 使い方
 
@@ -23,6 +23,10 @@
   -window_title タイトル ウィンドウタイトルを設定します（デフォルトはFFedgeです）。
   -help                  このヘルプメッセージを表示します。
   -version               バージョン情報を表示します。
+
+## サポートされているプラ​​ットフォーム
+
+- Windows 10 および Windows 11
 
 ## ライセンス
 
@@ -41,7 +45,7 @@
 
 This is a command line tool for Windows to display the Microsoft Edge browser in a specified position and size.
 
-You can also remove the title bar by specifying the "-noborder" option.
+This launches the Edge browser without the address bar and toolbar. You can also hide the title bar by specifying the "-noborder" option.
 
 ## Usage
 
@@ -60,6 +64,10 @@ Options:
   -window_title TITLE   Set the window title (default is FFedge).
   -help                 Display this help message.
   -version              Display version information.
+
+## Supported Platforms
+
+- Windows 10 and Windows 11
 
 ## License
 
