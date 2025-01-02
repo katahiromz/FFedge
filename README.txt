@@ -24,9 +24,9 @@
   -help                  このヘルプメッセージを表示します。
   -version               バージョン情報を表示します。
 
-## サポートされているプラ​​ットフォーム
+## 対応環境
 
-- Windows 10 および Windows 11
+- (WebView2ランタイムのある) Windows 10 および Windows 11
 
 ## 注意
 
@@ -69,9 +69,9 @@ Options:
   -help                 Display this help message.
   -version              Display version information.
 
-## Supported Platforms
+## Supported Environments
 
-- Windows 10 and Windows 11
+- Windows 10 and Windows 11 (with WebView2 runtime)
 
 ## Note
 
