@@ -1,6 +1,8 @@
 ﻿// FFedge
 // License: MIT
 
+#define _WIN32_WINNT _WIN32_WINNT_VISTA
+
 // Detect memory leaks (MSVC Debug only)
 #if defined(_MSC_VER) && !defined(NDEBUG) && !defined(_CRTDBG_MAP_ALLOC)
     #define _CRTDBG_MAP_ALLOC
