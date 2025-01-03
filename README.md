@@ -14,16 +14,17 @@
 使用方法: FFedge [オプション] URL
 
 オプション:
-  -i URL                 インターネット上の位置またはHTMLファイルを指定します。
-  -x 幅                  表示される幅を設定します。
-  -y 高さ                表示される高さを設定します。
-  -left 左               ウィンドウの左端のx位置を指定します（デフォルトは中央です）。
-  -top 上                ウィンドウの上端のy位置を指定します（デフォルトは中央です）。
-  -fs                    フルスクリーンモードで開始します。
-  -noborder              枠なしウィンドウを作成します。
-  -window_title タイトル ウィンドウタイトルを設定します（デフォルトはFFedgeです）。
-  -help                  このヘルプメッセージを表示します。
-  -version               バージョン情報を表示します。
+ -i URL                  インターネット上の位置またはHTMLファイルを指定します。
+ -x 幅                   表示される幅を設定します。
+ -y 高さ                 表示される高さを設定します。
+ -left 左                ウィンドウの左端のx位置を指定します(デフォルト:中央)。
+ -top 上                 ウィンドウの上端のy位置を指定します(デフォルト:中央)。
+ -fs                     フルスクリーンモードで開始します。
+ -noborder               枠なしウィンドウを作成します。
+ -window_title タイトル  ウィンドウタイトルを設定します(デフォルト:FFedge)。
+ -auto-click             自動的にクリックします(音楽再生用)。
+ -help                   このヘルプメッセージを表示します。
+ -version                バージョン情報を表示します。
 ```
 
 ## 対応環境
@@ -76,6 +77,7 @@ Options:
   -fs                   Start in fullscreen mode.
   -noborder             Create a borderless window.
   -window_title TITLE   Set the window title (default is FFedge).
+  -auto_click           Auto click (for music play).
   -help                 Display this help message.
   -version              Display version information.
 ```

@@ -20,6 +20,7 @@ else()
 endif()
 message(STATUS "ARCH = ${ARCH}")
 
+# webview2
 if(MSVC)
     message(FATAL_ERROR "Please use the solution file!")
 else()
@@ -27,10 +28,22 @@ else()
     set(WEBVIEW2_LIBS ${CMAKE_CURRENT_SOURCE_DIR}/${ARCH}/WebView2Loader.dll)
 endif()
 
+# JAPAN or not?
+option(JAPAN "Enable Japanese support" ON)
+if(JAPAN)
+    add_definitions(-DJAPAN)
+endif()
+message(STATUS "JAPAN = ${JAPAN}")
+
 # FFedge.exe
-add_executable(FFedge WIN32 FFedge.cpp FFedge_res.rc)
+add_executable(FFedge FFedge.cpp FFedge_res.rc)
 target_compile_definitions(FFedge PRIVATE UNICODE _UNICODE)
 target_include_directories(FFedge PRIVATE ${WEBVIEW2_INCLUDE})
 target_link_libraries(FFedge PRIVATE comctl32 shlwapi ${WEBVIEW2_LIBS})
+
+# Don't add default manifest
+if(MSVC)
+    target_link_options(FFedge PRIVATE /MANIFEST:NO)
+endif()
 
 ##############################################################################

@@ -16,8 +16,10 @@ CMakeCache.txt
 *.ninja
 *.cmake
 *~
+a.*
 
 CMakeFiles/
+FFedge.exe.WebView2/
 HelloWebView2.exe.WebView2/
 
 Debug/
