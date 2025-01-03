@@ -1,0 +1,14 @@
+﻿(Japanese, UTF-8)
+
+# FFedge の開発履歴
+
+- 2025-01-03 Ver.1.2
+    - 自動クリックに対応。
+
+---
+(English)
+
+# History of FFedge
+
+- 2025-01-03 Ver.1.2
+    - Supported auto-click.

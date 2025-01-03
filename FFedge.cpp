@@ -134,14 +134,19 @@ class MCoreWebView2HandlersImpl
     : public ICoreWebView2CreateCoreWebView2ControllerCompletedHandler
     , public ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler
     , public ICoreWebView2WebMessageReceivedEventHandler
+    , public ICoreWebView2NavigationCompletedEventHandler
 {
 protected:
     LONG m_cRefs = 1; // reference counter
     HWND m_hWnd = nullptr;
     std::wstring m_url;
+    BOOL m_auto_click = false;
 
 public:
-    MCoreWebView2HandlersImpl(HWND hWnd, LPCWSTR url) : m_hWnd(hWnd), m_url(url) {  }
+    MCoreWebView2HandlersImpl(HWND hWnd, LPCWSTR url, BOOL auto_click = FALSE)
+        : m_hWnd(hWnd)
+        , m_url(url)
+        , m_auto_click(auto_click) {  }
 
     // ICoreWebView2CreateCoreWebView2ControllerCompletedHandler interface
     STDMETHODIMP Invoke(HRESULT result, ICoreWebView2Controller* controller) override {
@@ -170,6 +175,10 @@ public:
 
         // Resize WebView
         PostMessage(m_hWnd, WM_SIZE, 0, 0);
+
+        // Receive NavigationCompleted event
+        EventRegistrationToken token;
+        g_webView->add_NavigationCompleted(this, &token);
 
         // Navigate to URL
         g_webView->Navigate(m_url.c_str());
@@ -205,6 +214,56 @@ public:
         return S_OK;
     }
 
+    // SendInput用に変換
+    POINT convert_point(POINT pt) {
+        return {
+            (pt.x * 65536 + GetSystemMetrics(SM_CXSCREEN) - 1) / GetSystemMetrics(SM_CXSCREEN),
+            (pt.y * 65536 + GetSystemMetrics(SM_CYSCREEN) - 1) / GetSystemMetrics(SM_CYSCREEN)
+        };
+    }
+
+    // ICoreWebView2NavigationCompletedEventHandler interface
+    STDMETHODIMP Invoke( 
+        ICoreWebView2 *sender,
+        ICoreWebView2NavigationCompletedEventArgs *args) override
+    {
+        if (m_auto_click) {
+            // カーソルの位置を覚えておく
+            POINT old_pt;
+            GetCursorPos(&old_pt);
+
+            // 中央位置を取得
+            RECT rc;
+            GetWindowRect(m_hWnd, &rc);
+            POINT center = { (rc.left + rc.right) / 2, (rc.top + rc.bottom) / 2 };
+            POINT converted = convert_point(center);
+
+            // マウス入力をエミュレート
+            INPUT input;
+            ZeroMemory(&input, sizeof(input));
+            input.type = INPUT_MOUSE;
+            input.mi.dx = converted.x;
+            input.mi.dy = converted.y;
+            input.mi.mouseData = 0;
+            input.mi.dwFlags = MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_VIRTUALDESK;
+            SendInput(1, &input, sizeof(input));
+            input.mi.dx = 0;
+            input.mi.dy = 0;
+            input.mi.mouseData = 0;
+            input.mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
+            SendInput(1, &input, sizeof(input));
+            input.mi.dx = 0;
+            input.mi.dy = 0;
+            input.mi.mouseData = 0;
+            input.mi.dwFlags = MOUSEEVENTF_LEFTUP;
+            SendInput(1, &input, sizeof(input));
+
+            // 元に戻す
+            SetCursorPos(old_pt.x, old_pt.y);
+        }
+        return S_OK;
+    }
+
     // IUnknown interface
     STDMETHODIMP_(ULONG) AddRef() override { return ++m_cRefs; }
     STDMETHODIMP_(ULONG) Release() override {
@@ -218,7 +277,8 @@ public:
         if (riid == IID_IUnknown ||
             riid == IID_ICoreWebView2CreateCoreWebView2ControllerCompletedHandler ||
             riid == IID_ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler ||
-            riid == IID_ICoreWebView2WebMessageReceivedEventHandler)
+            riid == IID_ICoreWebView2WebMessageReceivedEventHandler ||
+            riid == IID_ICoreWebView2NavigationCompletedEventHandler)
         {
             *ppvObject = this;
             AddRef();
@@ -266,7 +326,7 @@ WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     case MY_WM_CREATE_WEBVIEW:
         {
             FFEDGE *pThis = (FFEDGE *)GetWindowLongPtr(hWnd, GWLP_USERDATA);
-            auto handler = new MCoreWebView2HandlersImpl(hWnd, pThis->m_url.c_str());
+            auto handler = new MCoreWebView2HandlersImpl(hWnd, pThis->m_url.c_str(), pThis->m_auto_click);
             CreateCoreWebView2EnvironmentWithOptions(nullptr, nullptr, nullptr, handler);
             handler->Release();
         }
@@ -415,7 +475,7 @@ INT FFEDGE::parse_command_line(INT argc, LPWSTR *argv)
             continue;
         }
 
-        if (lstrcmpiW(arg, L"-auto_click") == 0)
+        if (lstrcmpiW(arg, L"-auto_click") == 0 || lstrcmpiW(arg, L"--auto_click") == 0)
         {
             m_auto_click = true;
             continue;
@@ -583,6 +643,9 @@ int main(void)
 {
     // Unicode console output support
     std::setlocale(LC_ALL, "");
+
+    // 高解像度対応
+    SetProcessDPIAware();
 
     INT argc;
     LPWSTR *argv = CommandLineToArgvW(GetCommandLineW(), &argc);
