@@ -215,7 +215,7 @@ public:
     }
 
     // SendInput用に変換
-    POINT convert_point(POINT pt) {
+    POINT convert_pt_for_SendInput(POINT pt) const {
         return {
             (pt.x * 65536 + GetSystemMetrics(SM_CXSCREEN) - 1) / GetSystemMetrics(SM_CXSCREEN),
             (pt.y * 65536 + GetSystemMetrics(SM_CYSCREEN) - 1) / GetSystemMetrics(SM_CYSCREEN)
@@ -236,9 +236,10 @@ public:
             RECT rc;
             GetWindowRect(m_hWnd, &rc);
             POINT center = { (rc.left + rc.right) / 2, (rc.top + rc.bottom) / 2 };
-            POINT converted = convert_point(center);
+            POINT converted = convert_pt_for_SendInput(center);
 
             // マウス入力をエミュレート
+            // https://qiita.com/kob58im/items/23df9e22778b33986d1c
             INPUT input;
             ZeroMemory(&input, sizeof(input));
             input.type = INPUT_MOUSE;
@@ -644,7 +645,8 @@ int main(void)
     // Unicode console output support
     std::setlocale(LC_ALL, "");
 
-    // 高解像度対応
+    // 高解像度対応 (Vista+)
+    // https://qiita.com/kob58im/items/23df9e22778b33986d1c
     SetProcessDPIAware();
 
     INT argc;
