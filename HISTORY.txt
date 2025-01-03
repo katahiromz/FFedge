@@ -3,6 +3,7 @@
 # FFedge の開発履歴
 
 - 2025-01-03 Ver.1.2
+    - ローカルファイルに対応。
     - 自動クリックに対応。
 
 ---
@@ -11,4 +12,5 @@
 # History of FFedge
 
 - 2025-01-03 Ver.1.2
+    - Supported local files.
     - Supported auto-click.
